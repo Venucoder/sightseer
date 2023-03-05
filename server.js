@@ -34,11 +34,11 @@ app.use(require('./routes/place'))
 app.use(require('./routes/user'))
 
 app.get('/', (req, res) => {
-	res.json({message: "Welcome to Sightseer"})
+	res.json({message: MONGOURI})
 })
 
 
-mongoose.connect(MONGOURI, { useNewUrlParser: true })
+mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 mongoose.connection.on('connected', () => {
 	console.log("Connected to mongo DB")

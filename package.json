@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    
     "start": "node server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix sightseer && npm run build --prefix sightseer"
+    "dev" : "nodemon server.js",
+    "build": "npm i"
   },
   "author": "",
   "license": "ISC",

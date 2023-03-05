@@ -1,4 +1,5 @@
-module.exports = {
-	MONGOURI: "mongodb+srv://venugo21:2EN9QuR1QyvG1THW@cluster0.lxmg4zk.mongodb.net/?retryWrites=true&w=majority",
-	JWT_SECRET: "hagshdgdbhj"
+if(process.env.NODE_ENV == "production") {
+	module.export = require('./prod')	
+}else {
+	module.export = require('./dev')	
 }

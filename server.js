@@ -10,7 +10,6 @@ require('./models/user')
 require('./models/place')
 
 
-
 var corsOptions = {
 	origin: "http://localhost:3000"
 }
@@ -38,7 +37,7 @@ app.get('/', (req, res) => {
 })
 
 
-mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGOURI, { useUnifiedTopology:true,useNewUrlParser: true })
 
 mongoose.connection.on('connected', () => {
 	console.log("Connected to mongo DB")

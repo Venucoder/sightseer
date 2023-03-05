@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 })
 
 
-mongoose.connect(MONGOURI)
+mongoose.connect(MONGOURI, { useNewUrlParser: true })
 
 mongoose.connection.on('connected', () => {
 	console.log("Connected to mongo DB")

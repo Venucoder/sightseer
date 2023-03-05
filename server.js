@@ -33,7 +33,7 @@ app.use(require('./routes/place'))
 app.use(require('./routes/user'))
 
 app.get('/', (req, res) => {
-	res.json({message: MONGOURI})
+	res.json({message: "Welcome to Sightseer"})
 })
 
 

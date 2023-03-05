@@ -11,7 +11,7 @@ require('./models/place')
 
 
 var corsOptions = {
-	origin: "http://localhost:3000"
+	origin: "https://master--wonderful-liger-e57457.netlify.app/"
 }
 
 app.use(cors(corsOptions))

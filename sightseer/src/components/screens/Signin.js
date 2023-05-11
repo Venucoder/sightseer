@@ -38,8 +38,7 @@ const Signin = () => {
         setShowPassword(prevState => !prevState);
     }
 
-    function handleSignup(e) {
-                  
+    function handleSignup(e) {                
         axios
           .post("/signin", {
             name: loginDetails.username,

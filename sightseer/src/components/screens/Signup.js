@@ -51,7 +51,7 @@ const Signup = () => {
         }        
         setIsLoading(true)
         axios
-          .post("/signup", {
+          .post(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
             name: loginDetails.username,
             email: loginDetails.email,
             password: loginDetails.password

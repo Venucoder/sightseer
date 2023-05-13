@@ -23,7 +23,7 @@ const Profile = () => {
 			})
 			.then(res => res.json())
 			.then(data => {							
-				axios.put('/updatepic', {					
+				axios.put(`${process.env.REACT_APP_BACKEND_URL}/updatepic`, {					
 					pic: data.url,
 					userid: state.user._id,
 				})				

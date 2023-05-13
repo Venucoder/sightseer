@@ -12,9 +12,8 @@ const Explore = () => {
    const {search, places, setPlaces, state} = useContext(searchContext);      
    console.log(places)
    console.log(state)
-   useEffect(() => {
-      console.log("Hurray")
-      axios.get('/allplaces')
+   useEffect(() => {      
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/allplaces`)
       .then(response => {         
          setPlaces(response.data.places)                  
       })
@@ -43,7 +42,7 @@ const Explore = () => {
          navigate('/signin')
       }
       else {
-         axios.put('/like', {
+         axios.put(`${process.env.REACT_APP_BACKEND_URL}/like`, {
             placeid,
             userid: state.user?._id,
          })
@@ -62,7 +61,7 @@ const Explore = () => {
 
    function handleUnLike(e, placeid) {
    e.preventDefault()      
-      axios.put('/unlike', {
+      axios.put(`${process.env.REACT_APP_BACKEND_URL}/unlike`, {
          placeid,
          userid: state.user?._id,
       })

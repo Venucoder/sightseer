@@ -47,7 +47,7 @@ const ExploreCard = () => {
         
 		console.log(cardid)
 		if(cardid) {
-			axios.get('/getplace', {
+			axios.get(`${process.env.REACT_APP_BACKEND_URL}/getplace`, {
 			  params: {
 			    placeid: cardid,
 			  },
@@ -92,7 +92,7 @@ const ExploreCard = () => {
 				})
 				.then(res => res.json())
 				.then(data => {					
-		    		axios.post('/uploadimage', {
+		    		axios.post(`${process.env.REACT_APP_BACKEND_URL}/uploadimage`, {
 		    			photo: data.url,
 		    			placeid: cardid	,
 		    		})

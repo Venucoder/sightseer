@@ -8,7 +8,7 @@ const {JWT_SECRET} = require('../config/keys')
 
 router.post('/signup',  (req, res) => {	
 	const {name, email, password} = req.body;	
-	console.log(name, email, password)
+	
 	if(!name || !email || !password) {
 		return res.json({err: "Please Enter All Fields"})
 	}

@@ -17,7 +17,7 @@ const CommentBox = ({placeid}) => {
 	useEffect(() => {
 		console.log(placeid)
 		if(placeid) {
-			axios.get('/allcomments', {
+			axios.get(`${process.env.REACT_APP_BACKEND_URL}/allcomments`, {
 			  params: {
 			    placeid,
 			  },
@@ -45,7 +45,7 @@ const CommentBox = ({placeid}) => {
 	        }); 	         	
 	    }
 		else {
-			axios.put('/addcomment', {
+			axios.put(`${process.env.REACT_APP_BACKEND_URL}/addcomment`, {
 				text: addComment,
 				rating,
 				postedBy: state.user._id,
@@ -70,7 +70,7 @@ const CommentBox = ({placeid}) => {
 
 	const handleCommentDelete = (e, commentid) => {
 		e.preventDefault()
-		axios.delete(`/deletecomment/${placeid}/${commentid}`)
+		axios.delete(`${process.env.REACT_APP_BACKEND_URL}/deletecomment/${placeid}/${commentid}`)
 		.then(response => {
 			console.log(response.data)
 			setComments(response.data.comments)

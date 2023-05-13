@@ -7,27 +7,9 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import logo from './assets/sig3.png'
 
-
-// 301F69
-// 816BFE
-// 7E6CFE
-// 8BA4FE
-// 223144
-// 4863fd
-// 9da9e5
-// 3528f8
-// 6b8bbe
-// 3955c1
-// 7C63FC
-// 7F84F3
-// 8A9EFE
-// 97AEFE
-
 const Navbar = () => {
 	const navigate = useNavigate()
 	const {search, setSearch, state, setState} = useContext(searchContext)
-
-	console.log(state)
 
 	function getSearch(e) {
    		setSearch(e.target.value)

@@ -40,7 +40,7 @@ const Signin = () => {
 
     function handleSignup(e) {                
         axios
-          .post("/signin", {
+          .post(`${process.env.REACT_APP_BACKEND_URL}/signin`, {
             name: loginDetails.username,
             email: loginDetails.email,
             password: loginDetails.password

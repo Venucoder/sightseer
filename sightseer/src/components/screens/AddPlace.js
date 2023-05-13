@@ -27,7 +27,7 @@ const AddPlace = () => {
 	useEffect(() => {
 		if (url) {
 			console.log("HII")
-			axios.post("/addplace", {
+			axios.post(`${process.env.REACT_APP_BACKEND_URL}/addplace`, {
 				sight: place.sight,
 				city: place.city,
 				province: place.province,

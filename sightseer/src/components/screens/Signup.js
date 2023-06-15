@@ -2,7 +2,6 @@ import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import travelgirl1 from '../assets/travelgirl4.jpg'
-import loginbg from '../assets/loginbg1.png'
 import { searchContext } from '../../App';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -56,8 +55,7 @@ const Signup = () => {
             email: loginDetails.email,
             password: loginDetails.password
           })
-          .then((response) => {
-            console.log("Data Received")
+          .then((response) => {            
             if(response.data.err) {
                 setIsLoading(false)
                 console.log(response.data.err)  

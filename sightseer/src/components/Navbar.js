@@ -19,7 +19,7 @@ const Navbar = () => {
 
   	function handleSearch() {
 	    console.log(search)
-	    navigate('/explore')
+	    navigate('/')
   	}
 
   	function renderNavs() {
@@ -84,10 +84,13 @@ const Navbar = () => {
   		}
   	}
 
+  	function goToHome() {
+  		navigate('/')
+  	} 	
 	return (
 		<div className="navbar">
-			<div className='nav-brand'>
-        		<img src={logo} alt="" />
+			<div className='nav-brand' onClick={goToHome} style={{cursor: "pointer"}}>
+        		<img src={logo} alt="Logo" />        		
       		</div>	
 			<div className='ser'>
 				<BiSearch className="ser-icon"/>

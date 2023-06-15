@@ -2,19 +2,18 @@ import React, {useState, useContext, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import travelgirl1 from '../assets/travelgirl4.jpg'
-import loginbg from '../assets/loginbg1.png'
 import { searchContext } from '../../App';
 import { FaFire } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {BsFillEyeFill, BsFillEyeSlashFill} from 'react-icons/bs'
+import Ghost from '../assets/Ghost.gif'
 
 const Signin = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const {state, setState} = useContext(searchContext)
     const navigate = useNavigate()
-    const [showPassword, setShowPassword] = useState(false)
-    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");    
+    const [showPassword, setShowPassword] = useState(false)    
     const [loginDetails, setLoginDetails] = useState({
         email: '',
         password: ''
@@ -39,6 +38,7 @@ const Signin = () => {
     }
 
     function handleSignup(e) {                
+        setIsLoading(true)
         axios
           .post(`${process.env.REACT_APP_BACKEND_URL}/signin`, {
             name: loginDetails.username,
@@ -52,7 +52,7 @@ const Signin = () => {
                     position: toast.POSITION.TOP_RIGHT
                 });                                                        
             }
-            else {     
+            else {                     
                 console.log(response.data.user)                           
                 localStorage.setItem("user", JSON.stringify(response.data.user))
                 setState(prevState=> {
@@ -60,6 +60,7 @@ const Signin = () => {
                         user: response.data.user
                     }
                 })  
+                setIsLoading(false)
                 toast.success(`Succesfully signed in`, {
                     position: toast.POSITION.TOP_RIGHT
                 }); 
@@ -71,6 +72,11 @@ const Signin = () => {
 
     return (
         <>
+        {isLoading ? (
+                <div className='loading'>
+                    <img src={Ghost} alt="Loading..." />
+                </div>
+            ) : (
             <div className="login-wrapper"> 
                 <div className="login-main">
                     <form className="login" onSubmit={handleSignup}>
@@ -100,9 +106,10 @@ const Signin = () => {
                         <h4>Let's explore the <br/>world together</h4>
                     </div>    
                 </div>    
-            </div>        
+            </div>  
+            )}
             <ToastContainer />  
-        </>
+        </>        
     );
 };
 

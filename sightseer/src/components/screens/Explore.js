@@ -1,21 +1,22 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import { searchContext } from '../../App';
 import axios from "axios";
 import { AiOutlineHeart } from "react-icons/ai";
-import { MdOutlineLocationOn } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import Rating from '@mui/material/Rating';
+import Ghost from '../assets/Ghost.gif'
 
 const Explore = () => {
    const navigate = useNavigate()
    const {search, places, setPlaces, state} = useContext(searchContext);      
-   console.log(places)
-   console.log(state)
+   const [isLoading, setIsLoading] = useState(true);
+   
    useEffect(() => {      
       axios.get(`${process.env.REACT_APP_BACKEND_URL}/allplaces`)
       .then(response => {         
-         setPlaces(response.data.places)                  
+         setPlaces(response.data.places)            
+         setIsLoading(false)      
       })
       .catch(err => console.log(err)) 
    }, [])
@@ -24,7 +25,7 @@ const Explore = () => {
       setPlaces(prevState => (            
             prevState.map(place => {
                return (
-                  place._id == response.data._id ? {
+                  place._id === response.data._id ? {
                      ...place,
                      likes: response.data.likes,
                   } : place
@@ -85,56 +86,68 @@ const Explore = () => {
    console.log(filter)
 
    return (
-      <div className="explore">
+      <>
          {
-            filter.map(place => {
-               let rating = 0
-               for (var i = 0; i < place.comments.length; i++) {
-                  rating = rating + Number(place.comments[i].rating)
-               }
-               rating = rating / place.comments.length
-               return (                                  
-                  <div className="exp-card">                  
-                     <img src={place.photo} alt={place.sight} />
-                     <div className='place_loc'>
-                        <h2>{capitalize(place.sight)}</h2>
-                        <h3>{capitalize(place.city)}, {capitalize(place.country)}</h3>
-                        <div className='rtg'>
-                           <div>
-                              <Rating value={rating} precision={0.1} readOnly />
-                              <p style={{fontSize: '12px', marginLeft: '5px'}}>{place.comments.length} reviews</p>   
+            isLoading ? (
+                <div className='loading'>
+                    <img src={Ghost} alt="Loading..." />
+                </div>
+            ) : (
+            <div className="explore">
+            {
+               filter.map(place => {
+                  let rating = 0
+                  for (var i = 0; i < place.comments.length; i++) {
+                     rating = rating + Number(place.comments[i].rating)
+                  }
+                  rating = rating / place.comments.length
+                  return (                                  
+                     <div className="exp-card">                  
+                        <img src={place.photo} alt={place.sight} />
+                        <div className='place_loc'>
+                           <h2>{capitalize(place.sight)}</h2>
+                           <h3>{capitalize(place.city)}, {capitalize(place.country)}</h3>
+                           <div className='rtg'>
+                              <div>
+                                 <Rating value={rating} precision={0.1} readOnly />
+                                 <p style={{fontSize: '12px', marginLeft: '5px'}}>{place.comments.length} reviews</p>   
+                              </div>
+                              <div>
+                                 <p>₹{place.cost}</p>
+                                 <p style={{fontSize: '12px'}}>expenses</p>   
+                              </div>                           
+                              
                            </div>
-                           <div>
-                              <p>₹{place.cost}</p>
-                              <p style={{fontSize: '12px'}}>expenses</p>   
-                           </div>                           
-                           
                         </div>
-                     </div>
-                     <div className='place_btm'>
-                        <Link to={'/explorecard/'+place?._id} className='exp_link'>Show Details</Link>
-                        
-                     {
-                        place.likes.includes(state.user?._id) ? (
-                           <div className='exp_like active'>
-                              <AiOutlineHeart style={{fontSize: '15px'}} />
-                              <p onClick={(e) => handleUnLike(e, place._id)}>Saved for later</p>
-                           </div>
-                        ) : (
-                           <div className='exp_like'>
-                              <AiOutlineHeart style={{fontSize: '15px'}} />
-                              <p onClick={(e) => handleLike(e, place._id)}>Save for later</p>
-                           </div>
-                        )                              
-                     }                                                
-                     </div>                     
-                  </div>                  
-               )
-            })
+                        <div className='place_btm'>
+                           <Link to={'/explorecard/'+place?._id} className='exp_link'>Show Details</Link>
+                           
+                        {
+                           place.likes.includes(state.user?._id) ? (
+                              <div className='exp_like active'>
+                                 <AiOutlineHeart style={{fontSize: '15px'}} />
+                                 <p onClick={(e) => handleUnLike(e, place._id)}>Saved for later</p>
+                              </div>
+                           ) : (
+                              <div className='exp_like'>
+                                 <AiOutlineHeart style={{fontSize: '15px'}} />
+                                 <p onClick={(e) => handleLike(e, place._id)}>Save for later</p>
+                              </div>
+                           )                              
+                        }                                                
+                        </div>                     
+                     </div>                  
+                  )
+               })
          }
          <ToastContainer />
       </div>
+            )
+         }
+      </>
    )
 };
 
 export default Explore;
+
+
